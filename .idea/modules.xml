@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/discord-at-code-reminder.iml" filepath="$PROJECT_DIR$/.idea/discord-at-code-reminder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/discord-reminder.iml" filepath="$PROJECT_DIR$/.idea/discord-reminder.iml" />
     </modules>
   </component>
 </project>

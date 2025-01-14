@@ -59,4 +59,3 @@ async def week_time(ctx: discord.Interaction, week: Choice[str],time:str): # 引
     else:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="設定中にエラーが発生しました"))
 
-client.run('')

@@ -1,0 +1,26 @@
+import discord
+from discord.ext import commands
+discord_intents = discord.Intents.all()
+client = commands.Bot(command_prefix='!', intents=discord_intents,activity=discord.Game("稼働中"))
+
+def say_embed(collar:int,title:str, message:str, img_url:str = None):
+    """
+    :param collar: 0xで指定してください
+    :param title:  title部分
+    :param message: 中身
+    :param img_url: 画像URL
+    :return:　discord.Embed
+    """
+    if img_url:
+        return discord.Embed(title=title, description=message, color=collar, url=img_url)
+    else:
+        return discord.Embed(title=title, description=message, color=collar)
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
+
+@client.command(name='week-time',description="毎週通知します")
+async def week_time(ctx,):
+    await ctx.send('Hello there!')
+@client.command(name='day-time',)
+client.run('token')

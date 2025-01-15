@@ -59,7 +59,7 @@ async def week_time(ctx: discord.Interaction, week: Choice[str],time:str,role:di
     try:
         data_time = datetime.datetime.strptime(time, '%H:%M:%S').time()
         db.set(str(ctx.guild.id),str(ctx.channel.id),"week",f"{week.name}-{data_time}",str(role.id))
-        await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎週{week.name}曜日 {data_time} にメッセージを送信するように設定しました"))
+        await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎週{week.name}曜日 {data_time} にメッセージを送信するように設定しました)"))
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="設定中にエラーが発生しました"))
 @tree.command(name='day-time', description="毎日通知します")

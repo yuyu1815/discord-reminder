@@ -29,7 +29,7 @@ class Database:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     guild_id VARCHAR(20) NOT NULL,
                     channel_id VARCHAR(20) NOT NULL,
-                    option_id INTEGER NOT NULL,                    
+                    option_id INTEGER NOT NULL,
                     call_time VARCHAR(10) NOT NULL,
                     mention_ids TEXT NOT NULL
                 );

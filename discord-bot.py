@@ -70,9 +70,9 @@ async def one_time(ctx:discord.Interaction,day:str,time:str,mention:discord.Role
                option_id="month",
                call_time=f"{day}-{data_time}",
                mention_ids = str(mention.id) if mention else "None",
-               title=str(title.name) if title else "おしらせ",
-               main_text =  message.name if message else "時間です",
-               img=ico.name if ico else "None")
+               title=str(title) if title else "おしらせ",
+               main_text =  message if message else "時間です",
+               img=ico if ico else "None")
         await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎月{day}-{data_time} にメッセージを送信するように設定しました"))
     except:
        await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="日付、時間の形式が間違えています。"))
@@ -176,10 +176,10 @@ async def day_time(ctx: discord.Interaction,time:str,mention:discord.Role=None,t
 async def get_settings(ctx: discord.Interaction,setting_id:str=None):
     try:
         db = Database(f"./db/Discord-{ctx.guild.id}")
+        settings = db.get()
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
         return
-    settings = db.get()
     if settings is None:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="現在設定されている通知はありません"))
         return
@@ -256,6 +256,7 @@ async def edit_settings(ctx: discord.Interaction,setting_id:str,setting:str=None
     channel = client.get_channel(int(ctx.channel.id))
     try:
         db = Database(f"./db/Discord-{ctx.guild.id}")
+        db_settings = db.get(id=str(ctx.guild.id))
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
         return
@@ -283,12 +284,20 @@ async def edit_settings(ctx: discord.Interaction,setting_id:str,setting:str=None
             formatted_time = f"{call_time.split('-')[0]}曜日 {call_time.split('-')[1].split(':')[0]}時{call_time.split('-')[1].split(':')[1]}分"
         else:
             formatted_time = f"{call_time.split(':')[0]}時{call_time.split(':')[1]}分"
-        await ctx.channel.send(embed=say_embed(color=0x0000ff, title=f"{title}({formatted_time})", message=main_text,img_url=img if img != "None" else None))
+        await ctx.channel.send(embed=say_embed(color=0x0000ff, title=f"{title}({formatted_time})", message=f"channel: {channel.mention}\n{main_text}",img_url=img if img != "None" else None))
 
         await ctx.response.send_message(embed=say_embed(color=0x00ff00, title="編集完了", message="指定された ID の通知を編集しました"))
     except Exception as e:
         print(f"Error: {e}")
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="編集中にエラーが発生しました"))
-
-
+@tree.command(name='channel-settings', description='設定したものを編集します')
+@app_commands.describe(setting_id="'/get-settings'で数字は確認してください")
+@app_commands.describe(channel_id="メッセージチャンネル")
+async def channel_settings(ctx: discord.Interaction,setting_id:str,channel_id:discord.TextChannel):
+    try:
+        db=Database(f"./db/Discord-{ctx.guild.id}")
+        db.update(id=setting_id,channel_id=str(channel_id.id))
+        await ctx.response.send_message(embed=say_embed(color=0x00ff00, title="編集完了", message=f"指定された channel の通知を<#{channel_id.id}>に編集しました"))
+    except Exception as e:
+        await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="編集中にエラーが発生しました"))
 client.run(os.getenv('TOKEN'))

@@ -39,13 +39,35 @@ def say_embed_field(color: int, title: str, message: list[dict[str, str]])->list
                 embed[embed_count].add_field(name=k, value=v, inline=True)
                 v_tmp += len(str(v))
     return embed
+def format_setting(setting):
+    id, _, _, setting_type, call_time, _, title, _, _ = setting
+    formatted_time = format_time(setting_type, call_time)
+    return {"id": id, "title": title, "time": formatted_time}
+def format_time(setting_type, call_time):
+    if "month" in setting_type:
+        # 月
+        day, time = call_time.split("-")
+        # 第?曜日
+        if "/" in time:
+            formatted_time = f"第{day.split('/')[0]} {day.split('/')[1]}曜日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}秒"
+        # 日時
+        else:
+            formatted_time = f"{day}日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}秒"
+    elif "week" in setting_type:
+        # 週
+        week,time = call_time.split('-')
+        formatted_time = f"{week}曜日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}秒"
+    else:
+        # 日
+        formatted_time = f"{call_time.split(':')[0]}時{call_time.split(':')[1]}分{call_time.split(':')[2]}秒"
+    return formatted_time
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     await tree.sync()
 
-@tree.command(name='set_up',description="初期設定をします")
-async def set_up(ctx):
+@tree.command(name='setup',description="初期設定をします")
+async def setup(ctx):
     try:
         db = Database(f"./db/Discord-{ctx.guild.id}")
         db.create_table()
@@ -67,7 +89,9 @@ async def one_time(ctx:discord.Interaction,day:str,time:str,mention:discord.Role
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
         return
     try:
-        day = int(day)
+        if not(1 <= int(day.split("/")[0]) <= 12 and 1 <= int(day.split("/")[1]) <= 31):
+            await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="日付が不正です"))
+            return
         data_time = datetime.datetime.strptime(time, '%H:%M:%S').time()
         db.set(guild_id=str(ctx.guild.id),
                channel_id=str(ctx.channel.id),
@@ -77,7 +101,7 @@ async def one_time(ctx:discord.Interaction,day:str,time:str,mention:discord.Role
                title=str(title) if title else "おしらせ",
                main_text =  message if message else "時間です",
                img=ico if ico else "None")
-        await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎月{day}-{data_time} にメッセージを送信するように設定しました"))
+        await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎月{day}-{data_time} にメッセージを<#{ctx.channel.id}>に送信するように設定しました"))
     except:
        await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="日付、時間の形式が間違えています。"))
     finally:
@@ -108,10 +132,16 @@ async def month_time(ctx:discord.Interaction,day:str,time:str,week:str = None,me
         day = int(day)
         data_time = datetime.datetime.strptime(time, '%H:%M:%S').time()
         if week:
-            if day < 4:
+            if 1 < day < 4:
                 await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="曜日を入力してください"))
                 return
-            day = f"{day}/{week}"
+            say_day = f"第{day} {week.name}曜日{data_time}"
+            day = f"{day}/{week.name}"
+        else:
+            if 1 < day < 31:
+                await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗", message="1~31日以内でを入力してください"))
+                return
+            say_day = f"{day}日{data_time}"
         db.set(guild_id=str(ctx.guild.id),
                channel_id=str(ctx.channel.id),
                option_id="month",
@@ -120,7 +150,7 @@ async def month_time(ctx:discord.Interaction,day:str,time:str,week:str = None,me
                title=str(title) if title else "おしらせ",
                main_text =  message if message else "時間です",
                img=ico if ico else "None")
-        await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎月{day}-{data_time} にメッセージを送信するように設定しました"))
+        await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎月 {say_day} にメッセージを送信するように設定しました"))
     except:
        await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="日付、時間の形式が間違えています。"))
     finally:
@@ -201,42 +231,36 @@ async def get_settings(ctx: discord.Interaction,setting_id:str=None):
     if settings is None:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="現在設定されている通知はありません"))
         return
-    formatted_settings = []
-    if setting_id is None:
-        for setting in settings:
-            id, _, _, setting_type, call_time, _, title, _, _ = setting
-            if "month" in setting_type:
-                formatted_time = f"{call_time.split('/')[0]}月 {call_time.split('/')[1]}日"
-            elif "week" in setting_type:
-                formatted_time = f"{call_time.split('-')[0]}曜日 {call_time.split('-')[1].split(':')[0]}時{call_time.split('-')[1].split(':')[1]}分"
-            else:
-                formatted_time = f"{call_time.split(':')[0]}時{call_time.split(':')[1]}分"
 
-            formatted_settings.append({"id": id, "title": title, "time": formatted_time})
-        embeds = say_embed_field(color=0x0000ff, title="設定中のメンション", message=formatted_settings)
-        #文字数が多すぎる場合
-        if len(embeds) > 1:
-            await ctx.response.send_message(embeds=embeds[0])
-            for embed in embeds[1:]:
-                await ctx.channel.send(embed=embed)
-        await ctx.response.send_message(embed=embeds[0])
+    if setting_id is None:
+        await send_all_settings(ctx, settings)
     else:
-        setting = db.get(setting_id)
-        if setting is None:
-            await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="指定された ID の通知は存在しないか、現在設定されていません"))
-            return
-        _, _, _, setting_type, call_time, mention_ids, title, img, main_text  = setting[0]
-        if "month" in setting_type:
-            formatted_time = f"{call_time.split('/')[0]}月 {call_time.split('/')[1]}日"
-        elif "week" in setting_type:
-            formatted_time = f"{call_time.split('-')[0]}曜日 {call_time.split('-')[1].split(':')[0]}時{call_time.split('-')[1].split(':')[1]}分"
-        else:
-            formatted_time = f"{call_time.split(':')[0]}時{call_time.split(':')[1]}分"
-        if mention_ids != "None":
-            await ctx.response.send_message(embed=say_embed(color=0x0000ff, title=f"{title}({formatted_time})", message=f"メンションするロール: <@&{mention_ids}>\n{main_text}",img_url=img if img != "None" else None))
-        else:
-            await ctx.response.send_message(embed=say_embed(color=0x0000ff, title=f"{title}({formatted_time})", message=main_text,img_url=img if img != "None" else None) )
-    db.close()
+        await send_specific_setting(ctx, db, setting_id)
+
+async def send_all_settings(ctx, settings):
+    formatted_settings = []
+    for setting in settings:
+        formatted_settings.append(format_setting(setting))
+    embeds = say_embed_field(color=0x0000ff, title="設定中のメンション", message=formatted_settings)
+    #文字数が多すぎる場合
+    if len(embeds) > 1:
+        await ctx.response.send_message(embeds=embeds[0])
+        for embed in embeds[1:]:
+            await ctx.channel.send(embed=embed)
+    await ctx.response.send_message(embed=embeds[0])
+
+async def send_specific_setting(ctx, db, setting_id):
+    setting = db.get(setting_id)
+    if setting is None:
+        await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="指定された ID の通知は存在しないか、現在設定されていません"))
+        return
+    _, _, _, setting_type, call_time, mention_ids, title, img, main_text  = setting[0]
+    formatted_time = format_time(setting_type, call_time)
+    if mention_ids != "None":
+        await ctx.response.send_message(embed=say_embed(color=0x0000ff, title=f"{title}({formatted_time})", message=f"メンションするロール: <@&{mention_ids}>\n{main_text}",img_url=img if img != "None" else None))
+    else:
+        await ctx.response.send_message(embed=say_embed(color=0x0000ff, title=f"{title}({formatted_time})", message=main_text,img_url=img if img != "None" else None) )
+
 @tree.command(name='del-settings', description="現在設定されている通知を削除します")
 @app_commands.describe(setting_id="'/get-settings'で数字は確認してください")
 async def del_settings(ctx: discord.Interaction,setting_id:str):
@@ -251,71 +275,6 @@ async def del_settings(ctx: discord.Interaction,setting_id:str):
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="指定された ID の通知が存在しないか、現在設定されていません"))
 
-@tree.command(name='edit-settings', description='設定したものを編集します')
-@app_commands.describe(setting_id="'/get-settings'で数字は確認してください")
-@app_commands.describe(setting="頻度設定")
-@app_commands.choices(setting=[
-    Choice(name="1回", value="oneday"),
-    Choice(name="毎日", value="day"),
-    Choice(name="毎週", value="week"),
-    Choice(name="毎月", value="month"),
-])
-@app_commands.describe(day="日")
-@app_commands.describe(week="曜日")
-@app_commands.choices(week=[
-    Choice(name="月", value="monday"),
-    Choice(name="火", value="tuesday"),
-    Choice(name="水", value="wednesday"),
-    Choice(name="木", value="thursday"),
-    Choice(name="金", value="friday"),
-    Choice(name="土", value="saturday"),
-    Choice(name="日", value="sunday"),
-])
-@app_commands.describe(time="時間設定 hh:mm 例(6:00:00)")
-@app_commands.describe(mention="メンションするロール")
-@app_commands.describe(title="タイトル")
-@app_commands.describe(message="設定された時間に発する文章")
-@app_commands.describe(ico="左上にアイコンとして設定されます")
-async def edit_settings(ctx: discord.Interaction,setting_id:str,setting:str=None,day:str=None,week:str=None,time:str=None,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None):
-    channel = client.get_channel(int(ctx.channel.id))
-    try:
-        db = Database(f"./db/Discord-{ctx.guild.id}")
-        db_settings = db.get(id=str(ctx.guild.id))
-    except:
-        await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
-        return
-    formatted_time = None
-    # 日
-    if setting == "oneday" and time:
-        formatted_time = time
-    # 週
-    elif setting == "week" and week and time:
-        formatted_time = f"{week}-{time}"
-    # 月
-    elif setting == "month" and day and time:
-        formatted_time = f"{day}-{time}"
-    elif (setting == "week" and (week or time)) or (setting == "month" and (day or time)):
-        await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="時間を設定する場合は日を両方入れてください"))
-        return
-    try:
-        #mention.id がNoneの場合の処理
-        mention_id = mention.id if mention else None
-        db.update(id=setting_id,call_time=formatted_time,mention_ids=mention_id, title=title, img=ico, main_text=message)
-        _, _, _, setting_type, call_time, mention_ids, title, img, main_text = db.get(setting_id)[0]
-        if "month" in setting_type:
-            day,time = call_time.split('-')
-            formatted_time = f"毎月 {day}日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}分"
-        elif "week" in setting_type:
-            day, time = call_time.split('-')
-            formatted_time = f"毎週 {day}曜日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}分"
-        else:
-            formatted_time = f"毎日 {call_time.split(':')[0]}時{call_time.split(':')[1]}分{call_time.split(':')[2]}秒"
-        await ctx.channel.send(embed=say_embed(color=0x0000ff, title=f"{title}({formatted_time})", message=f"channel: {channel.mention}\n{main_text}",img_url=img if img != "None" else None))
-
-        await ctx.response.send_message(embed=say_embed(color=0x00ff00, title="編集完了", message="指定された ID の通知を編集しました"))
-    except Exception as e:
-        print(f"Error: {e}")
-        await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="編集中にエラーが発生しました"))
 @tree.command(name='channel-settings', description='設定したものを編集します')
 @app_commands.describe(setting_id="'/get-settings'で数字は確認してください")
 @app_commands.describe(channel="メッセージチャンネル")
@@ -325,6 +284,7 @@ async def channel_settings(ctx: discord.Interaction,setting_id:str,channel:disco
         db_data= db.get(id=setting_id)
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
+        return
     try:
         if db_data is None:
             await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="指定された ID の通知は存在しないか、現在設定されていません"))

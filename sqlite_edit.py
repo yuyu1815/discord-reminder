@@ -29,7 +29,7 @@ class Database:
                     call_time VARCHAR(10) NOT NULL,
                     mention_ids TEXT NOT NULL,
                     title TEXT NOT NULL,
-                    img TEXT NOT NULL,  -- 画像URL or pass
+                    img TEXT NOT NULL,  -- 画像URL
                     main_text TEXT NOT NULL
                 );
             """)

@@ -3,8 +3,9 @@ import sqlite3
 ERROR_COLLAR = '\033[31m' #エラー 赤
 NORMAL_COLLAR = '\033[0m' #通常戻す
 class Database:
-    def __init__(self,app_name:str,db_name:str = "server-file",table_name:str = "datas"):
+    def __init__(self,app_name:str,guild_id:str,db_name:str = "server-file",table_name:str = "datas"):
         self.db_name = db_name
+        self.guild_id = guild_id
         self.db = sqlite3.connect(
             f"./{app_name}-{db_name}.db",
             isolation_level=None,
@@ -21,11 +22,12 @@ class Database:
         """
         with self.db:
             self.db.execute(f"""
-                CREATE TABLE IF NOT EXISTS setting_time (
+                CREATE TABLE IF NOT EXISTS setting_time_{self.guild_id} (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    guild_id VARCHAR(20) NOT NULL,
                     channel_id VARCHAR(20) NOT NULL,
-                    option_id VARCHAR(10) NOT NULL,
+                    option VARCHAR(10) NOT NULL,
+                    day VARCHAR(10) NOT NULL,
+                    week VARCHAR(10) NOT NULL,
                     call_time VARCHAR(10) NOT NULL,
                     mention_ids TEXT NOT NULL,
                     title TEXT NOT NULL,
@@ -33,25 +35,55 @@ class Database:
                     main_text TEXT NOT NULL
                 );
             """)
-    def set(self, guild_id:str, channel_id:str,option_id:str,call_time:str,mention_ids:str,title:str,main_text:str,img:str = "None")->None:
+    def set(self, guild_id:str, channel_id:str,option:str,day:str,week:str,call_time:str,mention_ids:str,title:str,main_text:str,img:str)->None:
         """
         チャンネルを設定
         通知時間を設定
         """
         with self.db:
-            self.db.execute(f"INSERT OR IGNORE INTO setting_time (guild_id,channel_id,option_id,call_time,mention_ids,title,img,main_text) VALUES (?,?,?,?,?,?,?,?)", (guild_id,channel_id,option_id,call_time,mention_ids,title,img,main_text))
+            self.db.execute(f"""INSERT OR IGNORE INTO setting_time_{guild_id} 
+                                (channel_id,option,day,week,call_time,mention_ids,title,img,main_text) VALUES (?,?,?,?,?,?,?,?,?)
+                                """,(channel_id,option,day,week,call_time,mention_ids,title,img,main_text)
+                            )
         self.db.commit()
-    def get(self,id:str = None):
+    def get(self,id:str):
         """
         通知のみのメッセージを全て取得
         """
         with self.db:
-            if id:
-                cursor = self.db.execute(f"SELECT * FROM setting_time WHERE id =?", (id,))
-            else:
-                cursor = self.db.execute(f"SELECT * FROM setting_time")
+            cursor = self.db.execute(f"SELECT * FROM setting_time_{self.guild_id} WHERE id = ?",(id))
             rows = cursor.fetchall()
-            return rows
+        return {
+                    "id":rows[0],
+                    "channel_id":rows[1],
+                    "option":rows[2],
+                    "day":rows[3],
+                    "week":rows[4],
+                    "call_time":rows[5],
+                    "mention_ids":rows[6],
+                    "title":rows[7],
+                    "main_text":rows[8],
+                    "img":rows[9]
+                }
+    def get_all(self,):
+        """
+        通知のみのメッセージを全て取得
+        """
+        with self.db:
+            cursor = self.db.execute(f"SELECT * FROM setting_time_{self.guild_id}")
+            rows = cursor.fetchall()
+        return {
+                    "id":rows[0],
+                    "channel_id":rows[1],
+                    "option":rows[2],
+                    "day":rows[3],
+                    "week":rows[4],
+                    "call_time":rows[5],
+                    "mention_ids":rows[6],
+                    "title":rows[7],
+                    "main_text":rows[8],
+                    "img":rows[9]
+                }
     def delete(self,id:str):
         """
         通知を削除
@@ -59,7 +91,7 @@ class Database:
         with self.db:
             self.db.execute(f"DELETE FROM setting_time WHERE id =?", (id,))
         self.db.commit()
-    def update(self,id:str,channel_id:str=None,call_time:str=None,mention_ids:str=None,title:str=None,img:str=None,main_text:str=None):
+    def update(self, guild_id:str, channel_id:str,option:str,day:str,week:str,call_time:str,mention_ids:str,title:str,main_text:str,img:str):
         """
         通知を更新
         """
@@ -67,7 +99,7 @@ class Database:
             print("更新する項目がありません")
             return
         #指定していないものは昔のものを指定
-        setting = self.get(id)[0]
+        setting = self.get()[0]
         channel_id = channel_id if not None else setting[2]
         call_time = call_time if call_time is not None else setting[4]
         mention_ids = mention_ids if mention_ids is not None else setting[5]
@@ -75,7 +107,9 @@ class Database:
         img = img if img is not None else setting[7]
         main_text = main_text if main_text is not None else setting[8]
         with self.db:
-            self.db.execute(f"UPDATE setting_time SET channel_id=?, call_time=?, mention_ids=?, title=?, img=?, main_text=? WHERE id=?", (channel_id,call_time, mention_ids, title, img, main_text, id))
+            #channel_id,option,day,week,call_time,mention_ids,title,img,main_text
+            self.db.execute(f"UPDATE setting_time_{guild_id} SET channel_id=?, call_time=?, mention_ids=?, title=?, img=?, main_text=?",
+                            (channel_id,call_time, mention_ids, title, img, main_text, id))
         self.db.commit()
     def close(self):
         """

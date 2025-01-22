@@ -1,9 +1,9 @@
-import datetime
-from pydoc import describe
-
+from datetime import datetime
+from pytz import timezone
 import discord
 from discord import app_commands
 from discord.app_commands import Choice
+from discord.ext import tasks
 from dotenv import load_dotenv
 import os
 from sqlite_edit import Database
@@ -65,6 +65,7 @@ def format_time(setting_type, call_time):
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     await tree.sync()
+    time_loop.start()
 
 @tree.command(name='setup',description="初期設定をします")
 async def setup(ctx):
@@ -92,10 +93,10 @@ async def one_time(ctx:discord.Interaction,day:str,time:str,mention:discord.Role
         if not(1 <= int(day.split("/")[0]) <= 12 and 1 <= int(day.split("/")[1]) <= 31):
             await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="日付が不正です"))
             return
-        data_time = datetime.datetime.strptime(time, '%H:%M:%S').time()
+        data_time = datetime.strptime(time, '%H:%M:%S').time()
         db.set(guild_id=str(ctx.guild.id),
                channel_id=str(ctx.channel.id),
-               option_id="month",
+               option_id="oneday",
                call_time=f"{day}-{data_time}",
                mention_ids = str(mention.id) if mention else "None",
                title=str(title) if title else "おしらせ",
@@ -283,7 +284,7 @@ async def del_settings(ctx: discord.Interaction,setting_id:str):
 async def channel_settings(ctx: discord.Interaction,setting_id:str,channel:discord.TextChannel):
     try:
         db=Database(f"./db/Discord-{ctx.guild.id}")
-        db_data= db.get(id=settingid)
+        db_data= db.get(id=setting_id)
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
         return
@@ -295,4 +296,45 @@ async def channel_settings(ctx: discord.Interaction,setting_id:str,channel:disco
         await ctx.response.send_message(embed=say_embed(color=0x00ff00, title="編集完了", message=f"指定された channel の通知を<#{db_data[3]}>から<#{channel.id}>に編集しました"))
     except Exception as e:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="編集中にエラーが発生しました"))
+def get_day(data):
+    # 週
+    if "month" == data[4] or "/" in data[4]:
+        day,week = data [4].split()
+    elif "month" == data[4]:
+        month,day =  data[4]
+    elif "week" == data[4]:
+        # 曜日
+        day = data[4]
+    elif "day" == data[4]:
+        day = data[4]
+    elif "oneday" == data[4]:
+        day = data[4]
+
+
+def db_load():
+    for i in os.listdir("db"):
+        db_datas = Database(f"./db/{i}")
+        return_datas = []
+        for db_data in db_datas.get():
+            if datetime.day == get_day(db_data):
+
+
+
+    return {
+        "id":,
+        "guild_id":,
+        "channel_id":,
+        "option_id":,
+        "call_time":,
+        "mention_ids":,
+        "title":,
+        "img":,
+        "main_text":
+    }
+@tasks.loop(seconds=10)
+async def time_loop():
+
+
+    now = datetime.now(timezone('Asia/Tokyo')).strftime('%H:%M:%S')
+
 client.run(os.getenv('TOKEN'))

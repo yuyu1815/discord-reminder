@@ -48,7 +48,7 @@ def format_time(setting_type, call_time):
         # 月
         day, time = call_time.split("-")
         # 第?曜日
-        if "/" in time:
+        if "/" in day:
             formatted_time = f"第{day.split('/')[0]} {day.split('/')[1]}曜日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}秒"
         # 日時
         else:
@@ -108,6 +108,7 @@ async def one_time(ctx:discord.Interaction,day:str,time:str,mention:discord.Role
         db.close()
 @tree.command(name='month-time',description='毎月通知します week 引数を使うと曜日を指定することができます')
 @app_commands.describe(day="日 or 第?曜日 dd 例(10)")
+@app_commands.describe(week="曜日設定")
 @app_commands.choices(week=[
     Choice(name="月", value="monday"),
     Choice(name="火", value="tuesday"),
@@ -122,7 +123,7 @@ async def one_time(ctx:discord.Interaction,day:str,time:str,mention:discord.Role
 @app_commands.describe(title="タイトル")
 @app_commands.describe(message="設定された時間に発する文章")
 @app_commands.describe(ico="左上にアイコンとして設定されます")
-async def month_time(ctx:discord.Interaction,day:str,time:str,week:str = None,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None):
+async def month_time(ctx:discord.Interaction,day:str,time:str,week:Choice[str] = None,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None):
     try:
         db = Database(f"./db/Discord-{ctx.guild.id}")
     except:
@@ -151,8 +152,9 @@ async def month_time(ctx:discord.Interaction,day:str,time:str,week:str = None,me
                main_text =  message if message else "時間です",
                img=ico if ico else "None")
         await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎月 {say_day} にメッセージを送信するように設定しました"))
-    except:
-       await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="日付、時間の形式が間違えています。"))
+    except Exception as e:
+        print(e)
+        await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="日付、時間の形式が間違えています。"))
     finally:
         db.close()
 @tree.command(name='week-time', description='毎週通知します')
@@ -184,16 +186,16 @@ async def week_time(ctx: discord.Interaction, week: Choice[str],time:str,mention
                option_id="week",
                call_time=f"{week.name}-{data_time}",
                mention_ids = str(mention.id) if mention else "None",
-               title=str(title.name) if title else "おしらせ",
-               main_text =  message.name if message else "時間です",
-               img=ico.name if ico else "None")
+               title=str(title) if title else "おしらせ",
+               main_text =  message if message else "時間です",
+               img=ico if ico else "None")
         await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎週 {week.name} 曜日 {data_time} にメッセージを送信するように設定しました"))
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="設定中にエラーが発生しました"))
     finally:
         db.close()
 @tree.command(name='day-time', description="毎日通知します")
-@app_commands.describe(time="時間設定 hh:mm 例(6:00:00)")
+@app_commands.describe(time="時間設定 hh:mm:ss 例(6:00:00)")
 @app_commands.describe(mention="メンションするロール")
 @app_commands.describe(title="タイトル")
 @app_commands.describe(message="設定された時間に発する文章")
@@ -281,7 +283,7 @@ async def del_settings(ctx: discord.Interaction,setting_id:str):
 async def channel_settings(ctx: discord.Interaction,setting_id:str,channel:discord.TextChannel):
     try:
         db=Database(f"./db/Discord-{ctx.guild.id}")
-        db_data= db.get(id=setting_id)
+        db_data= db.get(id=settingid)
     except:
         await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
         return

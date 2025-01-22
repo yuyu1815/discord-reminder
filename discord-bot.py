@@ -317,20 +317,6 @@ def db_load():
         return_datas = []
         for db_data in db_datas.get():
             if datetime.day == get_day(db_data):
-
-
-
-    return {
-        "id":,
-        "guild_id":,
-        "channel_id":,
-        "option_id":,
-        "call_time":,
-        "mention_ids":,
-        "title":,
-        "img":,
-        "main_text":
-    }
 @tasks.loop(seconds=10)
 async def time_loop():
 

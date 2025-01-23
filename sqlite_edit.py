@@ -3,11 +3,10 @@ import sqlite3
 ERROR_COLLAR = '\033[31m' #エラー 赤
 NORMAL_COLLAR = '\033[0m' #通常戻す
 class Database:
-    def __init__(self,app_name:str,guild_id:str,db_name:str = "server-file",table_name:str = "datas"):
+    def __init__(self,app_name:str,db_name:str = "server-file"):
         self.db_name = db_name
-        self.guild_id = guild_id
         self.db = sqlite3.connect(
-            f"./{app_name}-{db_name}.db",
+            f"./bd/{app_name}-{db_name}.db",
             isolation_level=None,
         )
     def __enter__(self):
@@ -16,13 +15,13 @@ class Database:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.db.commit()
         self.db.close()
-    def create_table(self):
+    def create_table(self,guild_id:str):
         """
         テーブルが存在しない場合、テーブルを作る
         """
         with self.db:
             self.db.execute(f"""
-                CREATE TABLE IF NOT EXISTS setting_time_{self.guild_id} (
+                CREATE TABLE IF NOT EXISTS setting_time_{guild_id} (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     channel_id VARCHAR(20) NOT NULL,
                     option VARCHAR(10) NOT NULL,
@@ -46,12 +45,12 @@ class Database:
                                 """,(channel_id,option,day,week,call_time,mention_ids,title,img,main_text)
                             )
         self.db.commit()
-    def get(self,id:str)->dict[str,str]:
+    def get(self,guild_id:str,id:str)->dict[str,str]:
         """
         通知のみのメッセージを全て取得
         """
         with self.db:
-            cursor = self.db.execute(f"SELECT * FROM setting_time_{self.guild_id} WHERE id = ?",(id))
+            cursor = self.db.execute(f"SELECT * FROM setting_time_{guild_id} WHERE id = ?",(id))
             rows = cursor.fetchall()[0]
         return {
                     "id":rows[0],
@@ -65,12 +64,12 @@ class Database:
                     "main_text":rows[8],
                     "img":rows[9]
                 }
-    def get_all(self)->dict[str,str]:
+    def get_all(self,guild_id:str)->dict[str,str]:
         """
         通知のみのメッセージを全て取得
         """
         with self.db:
-            cursor = self.db.execute(f"SELECT * FROM setting_time_{self.guild_id}")
+            cursor = self.db.execute(f"SELECT * FROM setting_time_{guild_id}")
             rows = cursor.fetchall()[0]
         return {
                     "id":rows[0],
@@ -84,14 +83,14 @@ class Database:
                     "main_text":rows[8],
                     "img":rows[9]
                 }
-    def delete(self,id:str):
+    def delete(self,guild_id:str,id:str):
         """
         通知を削除
         """
         with self.db:
-            self.db.execute(f"DELETE FROM setting_time WHERE id =?", (id,))
+            self.db.execute(f"DELETE FROM setting_time_{guild_id} WHERE id =?", (id,))
         self.db.commit()
-    def update(self, guild_id:str, channel_id:str,option:str,day:str,week:str,call_time:str,mention_ids:str,title:str,main_text:str,img:str):
+    def update(self,guild_id:str,id:str, channel_id:str,option:str,day:str,week:str,call_time:str,mention_ids:str,title:str,main_text:str,img:str):
         """
         通知を更新
         """

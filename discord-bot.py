@@ -171,7 +171,7 @@ class Reminder:
                     channel_id=str(ctx.channel.id),
                     option="month",
                     day=str(day),
-                    week=week,
+                    week=week if week else "None",
                     call_time=str(data_time),
                     mention_ids = str(mention.id) if mention else "None",
                     title=title if title else "おしらせ",
@@ -250,7 +250,7 @@ class Reminder:
     @tree.command(name='get-settings', description="現在設定されている通知を表示します")
     @app_commands.describe(setting_id="詳しい見た目が見れます")
     async def get_settings(self,ctx: discord.Interaction,setting_id:str=None):
-        settings = self.db.get_all(guild_id=ctx.guild.id)
+        settings = self.db.get_all(guild_id=str(ctx.guild.id))
         if settings is None:
             # noinspection PyUnresolvedReferences
             await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="現在設定されている通知はありません"))

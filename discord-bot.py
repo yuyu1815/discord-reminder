@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone
 import discord
 from discord import app_commands
@@ -21,6 +21,15 @@ format_week ={
     "saturday": "土",
     "sunday": "日",
 }
+week =[
+        Choice(name="月", value="monday"),
+        Choice(name="火", value="tuesday"),
+        Choice(name="水", value="wednesday"),
+        Choice(name="木", value="thursday"),
+        Choice(name="金", value="friday"),
+        Choice(name="土", value="saturday"),
+        Choice(name="日", value="sunday"),
+    ]
 def say_embed(color: int, title: str, message: str, img_url: str = None):
     """
     :param color: 0xで指定してください
@@ -34,6 +43,12 @@ def say_embed(color: int, title: str, message: str, img_url: str = None):
         embed.set_image(url=img_url)
     return embed
 def say_embed_field(color: int, title: str, message: list[dict[str, str]]) -> list[discord.Embed]:
+    """
+    :param color: 0xで指定してください
+    :param title: title部分
+    :param message: 中身 list[dict[str, str]]で投げてください
+    :return: discord.Embed
+    """
     embed: list[discord.Embed] = [discord.Embed(title=title, color=color)]
     for i, item in enumerate(message):
         embed_count = 0
@@ -49,6 +64,13 @@ def say_embed_field(color: int, title: str, message: list[dict[str, str]]) -> li
                 v_tmp += len(str(v))
     return embed
 def format_time(setting_type:str,week:str,day:str, time:str):
+    """
+    :param setting_type: 以下の物だけにしてください (month,week,day,oneday)
+    :param week: 曜日
+    :param day: 日
+    :param time: 時間
+    :return:　フォーマットされた時間
+    """
     if "month" in setting_type:
         # 毎月
         # 第?曜日
@@ -59,10 +81,17 @@ def format_time(setting_type:str,week:str,day:str, time:str):
     elif "week" in setting_type:
         # 毎週
         formatted_time = f"{format_week[week]}曜日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}秒"
-    else:
+    elif "day" in setting_type:
         # 毎日
         formatted_time = f"{time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}秒"
+    elif "oneday" in setting_type:
+        # 1回のみ
+        formatted_time = f"{day.split('/')[0]}月{day.split('/')[1]}日 {time.split(':')[0]}時{time.split(':')[1]}分{time.split(':')[2]}秒"
+    else:
+        formatted_time = ""
     return formatted_time
+def format_setting(setting):
+    return {"id": setting["id"], "title": setting["title"], "time": f'{setting["day"]}-{setting["formatted_time"]}'}
 class Reminder:
     def __init__(self):
         # スーパークラスのコンストラクタに値を渡して実行。
@@ -72,7 +101,6 @@ class Reminder:
         print('We have logged in as {0.user}'.format(client))
         await tree.sync()
         self.time_loop.start()
-
     @tree.command(name='setup',description="初期設定をします")
     async def setup(self,ctx):
         try:
@@ -89,13 +117,17 @@ class Reminder:
     @app_commands.describe(ico="左上にアイコンとして設定されます")
     async def one_time(self,ctx:discord.Interaction,time:str,day:str=None,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None):
         try:
+            data_time = datetime.strptime(time, '%H:%M:%S').time()
             #ない場合今日に設定
             if not day:
                 day = datetime.now(timezone('Asia/Tokyo')).strftime('%m/%d')
+                #その時間が過ぎている場合翌日に設定
+                if datetime.now(timezone('Asia/Tokyo')).time() > data_time:
+                    day = (datetime.now(timezone('Asia/Tokyo')) + timedelta(days=1)).strftime('%m/%d')
             #日付チェック
             elif not(1 <= int(day.split("/")[0]) <= 12 and 1 <= int(day.split("/")[1]) <= 31):
                 raise ValueError
-            data_time = datetime.strptime(time, '%H:%M:%S').time()
+
 
             self.db.set(guild_id=str(ctx.guild.id),
                    channel_id=str(ctx.channel.id),
@@ -118,15 +150,7 @@ class Reminder:
     @tree.command(name='month-time',description='毎月通知します week 引数を使うと曜日を指定することができます')
     @app_commands.describe(day="日 or 第?曜日 dd 例(10)")
     @app_commands.describe(week="曜日設定")
-    @app_commands.choices(week=[
-        Choice(name="月", value="monday"),
-        Choice(name="火", value="tuesday"),
-        Choice(name="水", value="wednesday"),
-        Choice(name="木", value="thursday"),
-        Choice(name="金", value="friday"),
-        Choice(name="土", value="saturday"),
-        Choice(name="日", value="sunday"),
-    ])
+    @app_commands.choices(week=week)
     @app_commands.describe(time="時間設定 hh:mm 例(6:00:00)")
     @app_commands.describe(mention="メンションするロール")
     @app_commands.describe(title="タイトル")
@@ -134,141 +158,122 @@ class Reminder:
     @app_commands.describe(ico="左上にアイコンとして設定されます")
     async def month_time(self,ctx:discord.Interaction,day:int,time:str,week:Choice[str] = None,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None):
         try:
-            day = int(day)
             data_time = datetime.strptime(time, '%H:%M:%S').time()
             if week:
-                if 1 < day < 4:
-                    # noinspection PyUnresolvedReferences
-                    await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="曜日を入力してください"))
-                    return
+                if not 1 < day < 5:
+                    raise ValueError
                 say_day = f"第{day} {week.name}曜日{data_time}"
-                day = f"{day}/{week.name}"
             else:
-                if 1 < day < 31:
-                    # noinspection PyUnresolvedReferences
-                    await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗", message="1~31日以内でを入力してください"))
-                    return
+                if not 1 < day < 31:
+                    raise ValueError
                 say_day = f"{day}日{data_time}"
             self.db.set(guild_id=str(ctx.guild.id),
-                   channel_id=str(ctx.channel.id),
-                   option_id="month",
-                   call_time=f"{day}-{data_time}",
-                   mention_ids = str(mention.id) if mention else "None",
-                   title=str(title) if title else "おしらせ",
-                   main_text =  message if message else "時間です",
-                   img=ico if ico else "None")
+                    channel_id=str(ctx.channel.id),
+                    option="month",
+                    day=str(day),
+                    week=week,
+                    call_time=str(data_time),
+                    mention_ids = str(mention.id) if mention else "None",
+                    title=title if title else "おしらせ",
+                    main_text =  message if message else "時間です",
+                    img=ico if ico else "None")
             # noinspection PyUnresolvedReferences
             await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎月 {say_day} にメッセージを送信するように設定しました"))
-        except Exception as e:
-            print(e)
+        except ValueError:
             # noinspection PyUnresolvedReferences
             await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="日付、時間の形式が間違えています。"))
-        finally:
-            db.close()
+        except Exception:
+            # noinspection PyUnresolvedReferences
+            await ctx.response.send_message(embed=say_embed(color=0xff0000,title="失敗",message="セットアップコマンドを実行してください"))
     @tree.command(name='week-time', description='毎週通知します')
     @app_commands.describe(week="曜日")
-    @app_commands.choices(week=[
-        Choice(name="月", value="monday"),
-        Choice(name="火", value="tuesday"),
-        Choice(name="水", value="wednesday"),
-        Choice(name="木", value="thursday"),
-        Choice(name="金", value="friday"),
-        Choice(name="土", value="saturday"),
-        Choice(name="日", value="sunday"),
-    ])
+    @app_commands.choices(week=week)
     @app_commands.describe(time="時間設定 hh:mm 例(6:00:00)")
     @app_commands.describe(mention="メンションするロール")
     @app_commands.describe(title="タイトル")
     @app_commands.describe(message="設定された時間に発する文章")
     @app_commands.describe(ico="左上にアイコンとして設定されます")
-    async def week_time(ctx: discord.Interaction, week: Choice[str],time:str,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None): # 引数名をdaysからweekに変更
+    async def week_time(self,ctx: discord.Interaction, week: Choice[str],time:str,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None):
         try:
-            db = Database(f"./db/Discord-{ctx.guild.id}")
-        except:
-            # noinspection PyUnresolvedReferences
-            await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
-            return
-        try:
-            data_time = datetime.datetime.strptime(time, '%H:%M:%S').time()
-            db.set(guild_id=str(ctx.guild.id),
-                   channel_id=str(ctx.channel.id),
-                   option_id="week",
-                   call_time=f"{week.name}-{data_time}",
-                   mention_ids = str(mention.id) if mention else "None",
-                   title=str(title) if title else "おしらせ",
-                   main_text =  message if message else "時間です",
-                   img=ico if ico else "None")
+            data_time = datetime.strptime(time, '%H:%M:%S').time()
+            self.db.set(guild_id=str(ctx.guild.id),
+                    channel_id=str(ctx.channel.id),
+                    option="week",
+                    day="None",
+                    week=week,
+                    call_time=str(data_time),
+                    mention_ids = str(mention.id) if mention else "None",
+                    title=str(title) if title else "おしらせ",
+                    main_text =  message if message else "時間です",
+                    img=ico if ico else "None")
             # noinspection PyUnresolvedReferences
             await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎週 {week.name} 曜日 {data_time} にメッセージを送信するように設定しました"))
-        except:
+        except ValueError:
             # noinspection PyUnresolvedReferences
-            await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="設定中にエラーが発生しました"))
-        finally:
-            db.close()
+            await ctx.response.send_message(
+                embed=say_embed(color=0xff0000, title="失敗", message="日付、時間の形式が間違えています。"))
+        except Exception:
+            # noinspection PyUnresolvedReferences
+            await ctx.response.send_message(
+                embed=say_embed(color=0xff0000, title="失敗", message="セットアップコマンドを実行してください"))
+
     @tree.command(name='day-time', description="毎日通知します")
     @app_commands.describe(time="時間設定 hh:mm:ss 例(6:00:00)")
     @app_commands.describe(mention="メンションするロール")
     @app_commands.describe(title="タイトル")
     @app_commands.describe(message="設定された時間に発する文章")
     @app_commands.describe(ico="左上にアイコンとして設定されます")
-    async def day_time(ctx: discord.Interaction,time:str,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None): # 引数名をdaysからweekに変更
+    async def day_time(self,ctx: discord.Interaction,time:str,mention:discord.Role=None,title:str=None,message:str=None,ico:str=None):
         try:
-            db = Database(f"./db/Discord-{ctx.guild.id}")
-        except:
-            # noinspection PyUnresolvedReferences
-            await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
-            return
-        try:
-            data_time = datetime.datetime.strptime(time, '%H:%M:%S').time()
-            db.set(guild_id=str(ctx.guild.id),
-                   channel_id=str(ctx.channel.id),
-                   option_id="day",
-                   call_time=str(data_time),
-                   mention_ids=str(mention.id) if mention else "None",
-                   title=title if title else "おしらせ",
-                   main_text=message if message else "時間です",
-                   img=ico if ico else "None")
+            data_time = datetime.strptime(time, '%H:%M:%S').time()
+            self.db.set(guild_id=str(ctx.guild.id),
+                    channel_id=str(ctx.channel.id),
+                    option="day",
+                    day="None",
+                    week="None",
+                    call_time=str(data_time),
+                    mention_ids=str(mention.id) if mention else "None",
+                    title=title if title else "おしらせ",
+                    main_text=message if message else "時間です",
+                    img=ico if ico else "None")
             # noinspection PyUnresolvedReferences
             await ctx.response.send_message(embed=say_embed(color=0x00ff00,title="設定完了",message=f"毎日 {data_time} にメッセージを送信するように設定しました"))
-        except:
+        except ValueError:
             # noinspection PyUnresolvedReferences
-            await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="設定中にエラーが発生しました"))
-        finally:
-            db.close()
+            await ctx.response.send_message(
+                embed=say_embed(color=0xff0000, title="失敗", message="日付、時間の形式が間違えています。"))
+        except Exception:
+            # noinspection PyUnresolvedReferences
+            await ctx.response.send_message(
+                embed=say_embed(color=0xff0000, title="失敗", message="セットアップコマンドを実行してください"))
+
     @tree.command(name='get-settings', description="現在設定されている通知を表示します")
     @app_commands.describe(setting_id="詳しい見た目が見れます")
-    async def get_settings(ctx: discord.Interaction,setting_id:str=None):
-        try:
-            db = Database(f"./db/Discord-{ctx.guild.id}")
-            settings = db.get()
-        except:
-            # noinspection PyUnresolvedReferences
-            await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="初期設定してください"))
-            return
+    async def get_settings(self,ctx: discord.Interaction,setting_id:str=None):
+        settings = self.db.get_all(guild_id=ctx.guild.id)
         if settings is None:
             # noinspection PyUnresolvedReferences
             await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="現在設定されている通知はありません"))
             return
 
         if setting_id is None:
-            await send_all_settings(ctx, settings)
+            await self.send_all_settings(ctx, settings)
         else:
-            await send_specific_setting(ctx, db, setting_id)
+            await self.send_specific_setting(ctx, setting_id)
 
-    async def send_all_settings(ctx, settings):
+    async def send_all_settings(self,ctx, settings):
         formatted_settings = []
         for setting in settings:
             formatted_settings.append(format_setting(setting))
         embeds = say_embed_field(color=0x0000ff, title="設定中のメンション", message=formatted_settings)
+        await ctx.response.send_message(embeds=embeds[0])
         #文字数が多すぎる場合
-        if len(embeds) > 1:
-            await ctx.response.send_message(embeds=embeds[0])
-            for embed in embeds[1:]:
-                await ctx.channel.send(embed=embed)
-        await ctx.response.send_message(embed=embeds[0])
+        for embed in embeds[1:]:
+            await ctx.channel.send(embed=embed)
 
-    async def send_specific_setting(ctx, db, setting_id):
-        setting = db.get(setting_id)
+
+    async def send_specific_setting(self,ctx, setting_id):
+        setting = self.db.get(guild_id=ctx.guild.id,id=setting_id)
         if setting is None:
             await ctx.response.send_message(embed=say_embed(color=0xff0000, title="エラー", message="指定された ID の通知は存在しないか、現在設定されていません"))
             return
@@ -283,7 +288,7 @@ class Reminder:
 
     @tree.command(name='del-settings', description="現在設定されている通知を削除します")
     @app_commands.describe(setting_id="'/get-settings'で数字は確認してください")
-    async def del_settings(ctx: discord.Interaction,setting_id:str):
+    async def del_settings(self,ctx: discord.Interaction,setting_id:str):
         try:
             db = Database(f"./db/Discord-{ctx.guild.id}")
         except:

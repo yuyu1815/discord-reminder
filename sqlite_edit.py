@@ -11,13 +11,14 @@ class Database:
         )
     def __enter__(self):
         return self.db.cursor()
-    #終了
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.db.commit()
         self.db.close()
     def create_table(self,guild_id:str):
         """
         テーブルが存在しない場合、テーブルを作る
+        Args:
+            guild_id (str): サーバーID
         """
         with self.db:
             self.db.execute(f"""
@@ -34,10 +35,22 @@ class Database:
                     main_text TEXT NOT NULL
                 );
             """)
-    def set(self, guild_id:str, channel_id:str,option:str,day:str,week:str,call_time:str,mention_ids:str,title:str,main_text:str,img:str)->None:
+    def set(self, guild_id:str, channel_id:str,option:str,day:str,week:str,call_time:str,
+            mention_ids:str,title:str,main_text:str,img:str)->None:
         """
-        チャンネルを設定
-        通知時間を設定
+        messageを送信する設定を保存
+        Args:
+            guild_id (str): サーバーID
+            id (str): レコードID
+            channel_id (int, optional): チャンネルID
+            option (str, optional): オプション
+            day (str, optional): 日
+            week (str, optional): 週
+            call_time (str, optional): 時間
+            mention_ids (str, optional): メンションID
+            title (str, optional): タイトル
+            main_text (str, optional): 本文
+            img (str, optional): 画像
         """
         with self.db:
             self.db.execute(f"""INSERT OR IGNORE INTO setting_time_{guild_id} 
@@ -48,6 +61,9 @@ class Database:
     def get(self,guild_id:str,id:str)->dict[str,str]:
         """
         通知のみのメッセージを全て取得
+        Args:
+            guild_id(str): サーバーID
+            id(str): レコードID
         """
         with self.db:
             cursor = self.db.execute(f"SELECT * FROM setting_time_{guild_id} WHERE id = ?",(id))
@@ -67,6 +83,8 @@ class Database:
     def get_all(self,guild_id:str)->dict[str,str]:
         """
         通知のみのメッセージを全て取得
+        Args:
+            guild_id(str): サーバーID
         """
         with self.db:
             cursor = self.db.execute(f"SELECT * FROM setting_time_{guild_id}")
@@ -86,37 +104,56 @@ class Database:
     def delete(self,guild_id:str,id:str):
         """
         通知を削除
+        Args:
+            guild_id(str): サーバーID
+            id(str): レコードID
         """
         with self.db:
             self.db.execute(f"DELETE FROM setting_time_{guild_id} WHERE id =?", (id,))
         self.db.commit()
-    def update(self,guild_id:str,id:str, channel_id:str,option:str,day:str,week:str,call_time:str,mention_ids:str,title:str,main_text:str,img:str):
+    def update_setting_time(self, guild_id:str, id:str, channel_id=None, option=None, day=None, week=None, call_time=None,
+                            mention_ids=None, title=None, main_text=None, img=None):
+        """setting_timeテーブルのレコードを更新する。
+        Args:
+            guild_id (int): サーバーID
+            id (int): レコードID
+            channel_id (int, optional): チャンネルID
+            option (str, optional): オプション
+            day (str, optional): 日
+            week (str, optional): 週
+            call_time (str, optional): 時間
+            mention_ids (str, optional): メンションID
+            title (str, optional): タイトル
+            main_text (str, optional): 本文
+            img (str, optional): 画像
         """
-        通知を更新
-        """
-        sql_query = ""
-        if channel_id is None and call_time is None and mention_ids is None and title is None and img is None and main_text is None:
-            print("更新する項目がありません")
-            return
-        #指定していないものは昔のものを指定
-        setting = self.get_all()
-        channel_id = channel_id if not None else setting["channel_id"]
-        option = option if not None else setting["option"]
-        day = day if not None else setting["day"]
-        week = week if not None else setting["week"]
-        call_time = call_time if call_time is not None else setting["call_time"]
-        mention_ids = mention_ids if mention_ids is not None else setting["mention_ids"]
-        title = title if title is not None else setting["title"]
-        img = img if img is not None else setting["img"]
-        main_text = main_text if main_text is not None else setting["main_text"]
+        update_values = []
+        params = []
+
+        for column, value in {
+            "channel_id": channel_id,
+            "option": option,
+            "day": day,
+            "week": week,
+            "call_time": call_time,
+            "mention_ids": mention_ids,
+            "title": title,
+            "main_text": main_text,
+            "img": img,
+        }.items():
+            if value is not None:
+                update_values.append(f"{column} = %s")
+                params.append(value)
+
+        sql_query = f"UPDATE setting_time_{guild_id} SET {', '.join(update_values)} WHERE id = %s"
+        params.append(id)
+
         with self.db:
-            #channel_id,option,day,week,call_time,mention_ids,title,img,main_text
-            self.db.execute(f"UPDATE setting_time_{guild_id} SET channel_id=?,option=?,day=?,week=?, call_time=?, mention_ids=?, title=?, img=?, main_text=? WHERE id=?",
-                            (channel_id,option,day,week,call_time, mention_ids, title, img, main_text,id))
-        self.db.commit()
+            self.db.execute(sql_query, params)
+            self.db.commit()
     def close(self):
         """
-        クローズ
+        dbクローズ
         """
         self.db.close()
 

@@ -330,3 +330,13 @@ Traceback (most recent call last):
     raise CommandNotFound(name, parents)
 discord.app_commands.errors.CommandNotFound: Application command 'web-ui' not found
 2025-04-24 12:45:17,060 - discord-bot - INFO - ボットを終了しています...
+2025-05-18 18:28:44,910 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-05-18 18:28:44,911 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-05-18 18:28:44,911 - discord-bot - INFO - ボットを起動しています...
+2025-05-18 18:28:44,913 - discord.client - INFO - logging in using static token
+2025-05-18 18:28:46,099 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 4ee2ba551693f8c5ee3464c8ea1cc5e0).
+2025-05-18 18:28:48,111 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-05-18 18:28:48,451 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-05-18 18:28:48,452 - discord-bot - INFO - 通知ループを開始しました。
+2025-05-18 18:28:48,461 - discord-bot - INFO - 設定キャッシュを更新しました。
+2025-05-18 18:38:44,412 - discord-bot - INFO - ボットを終了しています...

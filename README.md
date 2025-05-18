@@ -190,6 +190,41 @@ python discord-bot.py
    - メンションするロールの設定
    - 画像 URL の設定
 
+## Replitで24時間稼働させる方法
+
+このボットはReplitで24時間稼働させるための簡易Webサーバーを含んでいます。Webサーバーは自動的に起動し、HTTPリクエストに応答することで、Replitがアプリケーションを非アクティブとして停止するのを防ぎます。
+
+### Replitでの設定手順:
+
+1. リポジトリをReplitにインポートします
+2. Replitの「Secrets」タブでDiscordボットトークンの環境変数を設定します:
+   - キー: `TOKEN`
+   - 値: あなたのDiscordボットトークン
+3. Replitの「Run」ボタンを使ってボットを起動します
+4. UptimeRobotなどのサービスを使って、数分ごとにReplitのURLにpingを送信するように設定します
+
+### UptimeRobotの設定:
+
+1. [UptimeRobot](https://uptimerobot.com/)でアカウントを作成します
+2. 以下の設定で新しいモニターを追加します:
+   - モニタータイプ: HTTP(s)
+   - フレンドリーネーム: Discord Reminder Bot
+   - URL: あなたのReplitのURL（例: https://discord-reminder.yourusername.repl.co）
+   - 監視間隔: 5分
+3. モニターを保存します
+
+これにより、Webサーバーに定期的にHTTPリクエストを送信することで、Replit上でボットを24時間稼働させることができます。
+
+### Webサーバーのテスト:
+
+Webサーバーが正しく動作しているかテストするには、付属のテストスクリプトを使用できます:
+
+```
+python test_web_server.py
+```
+
+このスクリプトは、Webサーバーがリクエストに応答しているかをチェックします。これはReplitでボットを稼働させ続けるために重要です。
+
 ## トラブルシューティング
 
 ### 通知が送信されない場合

@@ -12,19 +12,22 @@ from discord.ext import tasks
 from dotenv import load_dotenv
 from pytz import timezone
 
-from sqlalchemy_models import Database
-from utilities import (
+from src.sqlalchemy_models import Database
+from src.utilities import (
     WEEK_CHOICES, create_embed, create_embed_with_fields,
     format_time, format_setting, should_send_notification
 )
 
 # ロギングの設定
+# logsディレクトリが存在することを確認
+os.makedirs("logs", exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler('discord_bot.log', encoding='utf-8')
+        logging.FileHandler('logs\\discord_bot.log', encoding='utf-8')
     ]
 )
 logger = logging.getLogger('discord-bot')
@@ -34,7 +37,6 @@ load_dotenv()
 
 # 環境変数の確認
 TOKEN = os.getenv('TOKEN')
-WEB_SERVER_URL = os.getenv('WEB_SERVER_URL', 'http://localhost:5000')
 URL_SALT = os.getenv('URL_SALT', 'discord-at-code-reminder-salt-12345')
 
 if not TOKEN:
@@ -111,7 +113,7 @@ async def onetime(ctx: discord.Interaction, time: str, day: str = None, mention:
             img=ico if ico else "None"
         )
 
-        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"{day} {data_time} にメッセージを<#{ctx.channel.id}>に送信するように設定しました。\n\nWeb UIで管理するには `/web-ui` コマンドを実行してURLを取得してください。"))
+        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"{day} {data_time} にメッセージを<#{ctx.channel.id}>に送信するように設定しました。\n\n通知の確認には `/get-settings` コマンドを使用してください。"))
     except ValueError:
         await ctx.response.send_message(embed=create_embed(color=0xff0000, title="失敗", message="日付、時間の形式が間違えています。"))
     except Exception as e:
@@ -122,7 +124,7 @@ async def onetime(ctx: discord.Interaction, time: str, day: str = None, mention:
 async def setup(ctx):
     try:
         db.create_table(guild_id=str(ctx.guild.id))
-        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message="設定が完了しました。\n\nWeb UIを使用するには `/web-ui` コマンドを実行してURLを取得してください。"))
+        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message="設定が完了しました。\n\n通知を設定するには各種コマンド（`/day-time`, `/week-time`, `/month-time`, `/one-time`）を使用してください。"))
     except Exception as e:
         logger.error(f"Setup error: {e}")
         await ctx.response.send_message(embed=create_embed(color=0xff0000, title="エラー", message="初期設定中にエラーが発生しました"))
@@ -160,7 +162,7 @@ async def one_time(ctx: discord.Interaction, time: str, day: str = None, mention
             img=ico if ico else "None"
         )
 
-        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"{day} {data_time} にメッセージを<#{ctx.channel.id}>に送信するように設定しました。\n\nWeb UIで管理するには `/web-ui` コマンドを実行してURLを取得してください。"))
+        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"{day} {data_time} にメッセージを<#{ctx.channel.id}>に送信するように設定しました。\n\n通知の確認には `/get-settings` コマンドを使用してください。"))
     except ValueError:
         await ctx.response.send_message(embed=create_embed(color=0xff0000, title="失敗", message="日付、時間の形式が間違えています。"))
     except Exception as e:
@@ -204,7 +206,7 @@ async def month_time(ctx: discord.Interaction, day: int, time: str, week: Choice
             img=ico if ico else "None"
         )
 
-        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"毎月 {say_day} にメッセージを送信するように設定しました。\n\nWeb UIで管理するには `/web-ui` コマンドを実行してURLを取得してください。"))
+        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"毎月 {say_day} にメッセージを送信するように設定しました。\n\n通知の確認には `/get-settings` コマンドを使用してください。"))
     except ValueError:
         await ctx.response.send_message(embed=create_embed(color=0xff0000, title="失敗", message="日付、時間の形式が間違えています。"))
     except Exception as e:
@@ -236,7 +238,7 @@ async def week_time(ctx: discord.Interaction, week: Choice[str], time: str, ment
             img=ico if ico else "None"
         )
 
-        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"毎週 {week.name}曜日 {data_time} にメッセージを送信するように設定しました。\n\nWeb UIで管理するには `/web-ui` コマンドを実行してURLを取得してください。"))
+        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"毎週 {week.name}曜日 {data_time} にメッセージを送信するように設定しました。\n\n通知の確認には `/get-settings` コマンドを使用してください。"))
     except ValueError:
         await ctx.response.send_message(embed=create_embed(color=0xff0000, title="失敗", message="日付、時間の形式が間違えています。"))
     except Exception as e:
@@ -266,7 +268,7 @@ async def day_time(ctx: discord.Interaction, time: str, mention: discord.Role = 
             img=ico if ico else "None"
         )
 
-        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"毎日 {data_time} にメッセージを送信するように設定しました。\n\nWeb UIで管理するには `/web-ui` コマンドを実行してURLを取得してください。"))
+        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="設定完了", message=f"毎日 {data_time} にメッセージを送信するように設定しました。\n\n通知の確認には `/get-settings` コマンドを使用してください。"))
     except ValueError:
         await ctx.response.send_message(embed=create_embed(color=0xff0000, title="失敗", message="日付、時間の形式が間違えています。"))
     except Exception as e:
@@ -301,12 +303,12 @@ async def send_all_settings(ctx, settings):
 
     embeds = create_embed_with_fields(color=0x0000ff, title="設定中の通知", fields=formatted_settings)
 
-    # 最初の埋め込みメッセージのdescriptionにWeb UIの情報を追加
-    web_ui_info = "Web UIで通知を管理するには `/web-ui` コマンドを実行してURLを取得してください。"
+    # 通知管理に関する情報を追加
+    management_info = "通知の削除には `/del-settings` コマンドを使用してください。"
     if embeds[0].description:
-        embeds[0].description += f"\n\n{web_ui_info}"
+        embeds[0].description += f"\n\n{management_info}"
     else:
-        embeds[0].description = web_ui_info
+        embeds[0].description = management_info
 
     await ctx.response.send_message(embed=embeds[0])
 
@@ -327,20 +329,20 @@ async def send_specific_setting(ctx, setting_id):
         time=setting["call_time"]
     )
 
-    web_ui_info = "\n\nWeb UIで通知を管理するには `/web-ui` コマンドを実行してURLを取得してください。"
+    management_info = f"\n\n通知IDは {setting['id']} です。削除するには `/del-settings {setting['id']}` コマンドを使用してください。"
 
     if setting["mention_ids"] != "None":
         await ctx.response.send_message(embed=create_embed(
             color=0x0000ff,
             title=f"{setting['title']}({formatted_time})",
-            message=f"メンションするロール: <@&{setting['mention_ids']}>\n{setting['main_text']}{web_ui_info}",
+            message=f"メンションするロール: <@&{setting['mention_ids']}>\n{setting['main_text']}{management_info}",
             img_url=setting["img"] if setting["img"] != "None" else None
         ))
     else:
         await ctx.response.send_message(embed=create_embed(
             color=0x0000ff,
             title=f"{setting['title']}({formatted_time})",
-            message=f"{setting['main_text']}{web_ui_info}",
+            message=f"{setting['main_text']}{management_info}",
             img_url=setting["img"] if setting["img"] != "None" else None
         ))
 
@@ -354,7 +356,7 @@ async def del_settings(ctx: discord.Interaction, setting_id: str):
             return
 
         db.delete(guild_id=str(ctx.guild.id), id=setting_id)
-        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="削除完了", message="指定された ID の通知を削除しました。\n\nWeb UIで通知を管理するには `/web-ui` コマンドを実行してURLを取得してください。"))
+        await ctx.response.send_message(embed=create_embed(color=0x00ff00, title="削除完了", message="指定された ID の通知を削除しました。\n\n通知の確認には `/get-settings` コマンドを使用してください。"))
     except Exception as e:
         logger.error(f"Del-settings error: {e}")
         await ctx.response.send_message(embed=create_embed(color=0xff0000, title="エラー", message="通知の削除中にエラーが発生しました"))
@@ -375,7 +377,7 @@ async def channel_settings(ctx: discord.Interaction, setting_id: str, channel: d
         await ctx.response.send_message(embed=create_embed(
             color=0x00ff00,
             title="編集完了",
-            message=f"指定された channel の通知を<#{old_channel_id}>から<#{channel.id}>に編集しました。\n\nWeb UIで通知を管理するには `/web-ui` コマンドを実行してURLを取得してください。"
+            message=f"指定された channel の通知を<#{old_channel_id}>から<#{channel.id}>に編集しました。\n\n通知の確認には `/get-settings` コマンドを使用してください。"
         ))
     except Exception as e:
         logger.error(f"Channel-settings error: {e}")
@@ -384,40 +386,12 @@ async def channel_settings(ctx: discord.Interaction, setting_id: str, channel: d
 @tree.command(name='web-ui', description="Web UIのURLを取得します")
 async def web_ui(ctx: discord.Interaction):
     try:
-        guild_id = str(ctx.guild.id)
-
-        # 一貫性のあるトークンを生成
-        token = generate_server_token(guild_id)
-
-        # サーバー固有のURLを生成
-        server_url = f"{WEB_SERVER_URL}/server/{guild_id}/{token}"
-
-        # 最初に応答を送信してからDMを送信する
-        try:
-            # まず公開チャンネルでの応答を送信
-            await ctx.response.send_message(embed=create_embed(
-                color=0x00ff00,
-                title="Web UI URL",
-                message="Web UIのURLをDMで送信します。DMを確認してください。このURLはサーバーのメンバー全員が使用できます。"
-            ))
-
-            # 次にDMでURLを送信
-            embed = create_embed(
-                color=0x00ff00,
-                title="Web UI URL",
-                message=f"以下のURLからWeb UIにアクセスできます。このURLはサーバーのメンバー全員が使用できます。サーバーのメンバーと共有してください。\n\n{server_url}"
-            )
-            await ctx.user.send(embed=embed)
-        except discord.Forbidden:
-            # DMが送信できない場合はフォローアップメッセージで送信
-            try:
-                await ctx.followup.send(embed=create_embed(
-                    color=0x00ff00,
-                    title="Web UI URL",
-                    message=f"DMを送信できませんでした。以下のURLからWeb UIにアクセスできます。このURLはサーバーのメンバー全員が使用できます。サーバーのメンバーと共有してください。\n\n{server_url}"
-                ))
-            except Exception as dm_error:
-                logger.error(f"DMとフォローアップの両方が失敗しました: {dm_error}")
+        # Web UIが削除されたことを通知
+        await ctx.response.send_message(embed=create_embed(
+            color=0xff9900,
+            title="Web UI 機能終了のお知らせ",
+            message="Web UI機能は現在利用できません。Discord botのコマンドを使用して通知を管理してください。\n\n通知の確認: `/get-settings`\n通知の削除: `/del-settings`"
+        ))
     except discord.errors.NotFound as nf_error:
         # 10062エラー（Unknown interaction）の場合
         if "10062" in str(nf_error):
@@ -428,7 +402,7 @@ async def web_ui(ctx: discord.Interaction):
     except Exception as e:
         logger.error(f"Web-ui error: {e}")
         try:
-            await ctx.response.send_message(embed=create_embed(color=0xff0000, title="エラー", message="URLの生成中にエラーが発生しました"))
+            await ctx.response.send_message(embed=create_embed(color=0xff0000, title="エラー", message="コマンド実行中にエラーが発生しました"))
         except discord.errors.NotFound:
             # インタラクションがすでにタイムアウトしている場合は無視
             pass

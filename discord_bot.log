@@ -1,0 +1,332 @@
+2025-04-24 11:24:23,056 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 11:24:23,060 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 11:24:23,174 - discord-bot - INFO - データベース接続の初期化に成功しました。
+2025-04-24 11:24:24,017 - discord-bot - INFO - リマインダーの初期化に成功しました。
+2025-04-24 11:24:24,019 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 11:24:24,023 - discord.client - INFO - logging in using static token
+2025-04-24 11:24:25,613 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 5d70d00de42f093a8550924f321493d2).
+2025-04-24 11:24:27,640 - discord.client - ERROR - Ignoring exception in on_ready
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\client.py", line 449, in _run_event
+    await coro(*args, **kwargs)
+TypeError: Reminder.on_ready() missing 1 required positional argument: 'self'
+2025-04-24 11:25:10,553 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 11:25:10,553 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 11:25:10,575 - discord-bot - INFO - データベース接続の初期化に成功しました。
+2025-04-24 11:25:10,660 - discord-bot - INFO - リマインダーの初期化に成功しました。
+2025-04-24 11:25:10,660 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 11:25:10,662 - discord.client - INFO - logging in using static token
+2025-04-24 11:25:12,057 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 0b2379062147846574dbb51a985afaaf).
+2025-04-24 11:25:14,101 - discord.client - ERROR - Ignoring exception in on_ready
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\client.py", line 449, in _run_event
+    await coro(*args, **kwargs)
+TypeError: Reminder.on_ready() missing 1 required positional argument: 'self'
+2025-04-24 11:27:26,778 - discord-bot - INFO - ボットを終了しています...
+2025-04-24 11:27:33,069 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 11:27:33,069 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 11:27:33,114 - discord-bot - INFO - データベース接続の初期化に成功しました。
+2025-04-24 11:27:33,277 - discord-bot - INFO - リマインダーの初期化に成功しました。
+2025-04-24 11:27:33,277 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 11:27:33,280 - discord.client - INFO - logging in using static token
+2025-04-24 11:27:34,745 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 5be007390fc5d3a8d7c39ecc5ab03692).
+2025-04-24 11:27:36,759 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-04-24 11:27:37,197 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-04-24 11:27:37,198 - discord-bot - INFO - 通知ループを開始しました。
+2025-04-24 11:27:37,207 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:38,200 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:39,215 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:40,211 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:41,207 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:42,209 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:43,208 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:44,206 - discord-bot - ERROR - ギルド 810430013370662912 の設定キャッシュ更新中にエラーが発生しました: The argument passed to Dialect.has_table() should be a <class 'sqlalchemy.engine.base.Connection'>, got <class 'sqlalchemy.engine.base.Engine'>. Additionally, the Dialect.has_table() method is for internal dialect use only; please use ``inspect(some_engine).has_table(<tablename>>)`` for public API use.
+2025-04-24 11:27:44,619 - discord-bot - INFO - ボットを終了しています...
+2025-04-24 11:29:26,367 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 11:29:26,368 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 11:29:26,451 - discord-bot - INFO - データベース接続の初期化に成功しました。
+2025-04-24 11:29:27,088 - discord-bot - INFO - リマインダーの初期化に成功しました。
+2025-04-24 11:29:27,088 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 11:29:27,106 - discord.client - INFO - logging in using static token
+2025-04-24 11:29:28,874 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: f240d404ac53f84df769a75fda4ae41a).
+2025-04-24 11:29:30,967 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-04-24 11:29:31,352 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-04-24 11:29:31,352 - discord-bot - INFO - 通知ループを開始しました。
+2025-04-24 11:30:40,146 - discord.app_commands.tree - ERROR - Ignoring exception in command 'setup'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'setup' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:30:40,355 - discord.app_commands.tree - ERROR - Ignoring exception in command 'setup'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'setup' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:30:57,452 - discord-bot - INFO - ボットを終了しています...
+2025-04-24 11:36:19,233 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 11:36:19,234 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 11:36:19,237 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 11:36:19,239 - discord.client - INFO - logging in using static token
+2025-04-24 11:36:20,852 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: a9214499f5fa8ac7f5fd771c2b8832e5).
+2025-04-24 11:36:22,880 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-04-24 11:36:23,673 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-04-24 11:36:23,674 - discord-bot - INFO - 通知ループを開始しました。
+2025-04-24 11:36:40,772 - discord.app_commands.tree - ERROR - Ignoring exception in command 'setup'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'setup' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:36:53,964 - discord.app_commands.tree - ERROR - Ignoring exception in command 'get-settings'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'get-settings' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:37:12,284 - discord.app_commands.tree - ERROR - Ignoring exception in command 'get-settings'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'get-settings' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:37:29,062 - discord.app_commands.tree - ERROR - Ignoring exception in command 'week-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'week-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:37:50,078 - discord.app_commands.tree - ERROR - Ignoring exception in command 'one-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'one-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:38:02,688 - discord.app_commands.tree - ERROR - Ignoring exception in command 'one-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'one-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:38:20,006 - discord.app_commands.tree - ERROR - Ignoring exception in command 'get-settings'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'get-settings' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:38:30,708 - discord.app_commands.tree - ERROR - Ignoring exception in command 'get-settings'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'get-settings' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:40:22,100 - discord.app_commands.tree - ERROR - Ignoring exception in command 'day-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'day-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:42:25,321 - discord.app_commands.tree - ERROR - Ignoring exception in command 'week-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'week-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:43:04,308 - discord.app_commands.tree - ERROR - Ignoring exception in command 'month-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'month-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:44:34,244 - discord.client - ERROR - Attempting a reconnect in 0.54s
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\client.py", line 667, in connect
+    await self.ws.poll_event()
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\gateway.py", line 648, in poll_event
+    raise ConnectionClosed(self.socket, shard_id=self.shard_id, code=code) from None
+discord.errors.ConnectionClosed: Shard ID None WebSocket closed with 1000
+2025-04-24 11:44:35,258 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 5d70d00de42f093a8550924f321493d2.
+2025-04-24 11:49:21,679 - discord.client - ERROR - Attempting a reconnect in 0.01s
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\client.py", line 667, in connect
+    await self.ws.poll_event()
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\gateway.py", line 648, in poll_event
+    raise ConnectionClosed(self.socket, shard_id=self.shard_id, code=code) from None
+discord.errors.ConnectionClosed: Shard ID None WebSocket closed with 1000
+2025-04-24 11:49:22,623 - discord.gateway - INFO - Shard ID None has successfully RESUMED session a9214499f5fa8ac7f5fd771c2b8832e5.
+2025-04-24 11:55:09,130 - discord.app_commands.tree - ERROR - Ignoring exception in command 'month-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'month-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 11:58:19,847 - discord.client - ERROR - Attempting a reconnect in 1.22s
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\client.py", line 667, in connect
+    await self.ws.poll_event()
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\gateway.py", line 648, in poll_event
+    raise ConnectionClosed(self.socket, shard_id=self.shard_id, code=code) from None
+discord.errors.ConnectionClosed: Shard ID None WebSocket closed with 1000
+2025-04-24 11:58:21,537 - discord.gateway - INFO - Shard ID None has successfully RESUMED session a9214499f5fa8ac7f5fd771c2b8832e5.
+2025-04-24 12:02:19,506 - discord.client - ERROR - Attempting a reconnect in 2.16s
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\client.py", line 667, in connect
+    await self.ws.poll_event()
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\gateway.py", line 648, in poll_event
+    raise ConnectionClosed(self.socket, shard_id=self.shard_id, code=code) from None
+discord.errors.ConnectionClosed: Shard ID None WebSocket closed with 1000
+2025-04-24 12:02:22,133 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 5d70d00de42f093a8550924f321493d2.
+2025-04-24 12:03:02,430 - discord-bot - INFO - ボットを終了しています...
+2025-04-24 12:12:16,324 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 12:12:16,325 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 12:12:16,334 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 12:12:16,341 - discord.client - INFO - logging in using static token
+2025-04-24 12:12:17,828 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 5661f086fce1821e3fe06b19852608a3).
+2025-04-24 12:12:19,850 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-04-24 12:12:20,357 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-04-24 12:12:20,358 - discord-bot - INFO - 通知ループを開始しました。
+2025-04-24 12:12:20,387 - discord-bot - INFO - 設定キャッシュを更新しました。
+2025-04-24 12:13:28,335 - discord-bot - INFO - ボットを終了しています...
+2025-04-24 12:15:45,622 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 12:15:45,623 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 12:15:45,625 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 12:15:45,627 - discord.client - INFO - logging in using static token
+2025-04-24 12:15:47,078 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: e43096534568c56cf7d548d083bf45fe).
+2025-04-24 12:15:49,085 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-04-24 12:15:49,437 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-04-24 12:15:49,438 - discord-bot - INFO - 通知ループを開始しました。
+2025-04-24 12:15:49,467 - discord-bot - INFO - 設定キャッシュを更新しました。
+2025-04-24 12:16:20,370 - discord.app_commands.tree - ERROR - Ignoring exception in command 'one-time'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'one-time' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 12:24:04,843 - discord.app_commands.tree - ERROR - Ignoring exception in command 'get-settings'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 871, in _do_call
+    raise CommandSignatureMismatch(self) from None
+discord.app_commands.errors.CommandSignatureMismatch: The signature for command 'get-settings' is different from the one provided by Discord. This can happen because either your code is out of date or you have not synced the commands with Discord, causing the mismatch in data. It is recommended to sync the command tree to fix this issue.
+2025-04-24 12:25:30,062 - discord-bot - INFO - ボットを終了しています...
+2025-04-24 12:25:38,173 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 12:25:38,173 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 12:25:38,178 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 12:25:38,179 - discord.client - INFO - logging in using static token
+2025-04-24 12:25:39,685 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: bb6d414f9b19266358215712c8f9e752).
+2025-04-24 12:25:41,702 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-04-24 12:25:42,323 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-04-24 12:25:42,323 - discord-bot - INFO - 通知ループを開始しました。
+2025-04-24 12:25:42,342 - discord-bot - INFO - 設定キャッシュを更新しました。
+2025-04-24 12:27:02,441 - discord.app_commands.tree - ERROR - Ignoring exception in command tree
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1151, in wrapper
+    await self._call(interaction)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1283, in _call
+    command, options = self._get_app_command_options(data)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1187, in _get_app_command_options
+    raise CommandNotFound(name, parents)
+discord.app_commands.errors.CommandNotFound: Application command 'web-ui' not found
+2025-04-24 12:27:06,540 - discord-bot - ERROR - Web-ui error: 404 Not Found (error code: 10062): Unknown interaction
+2025-04-24 12:27:06,772 - discord.app_commands.tree - ERROR - Ignoring exception in command 'web-ui'
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\discord-bot.py", line 389, in web_ui
+    await ctx.response.send_message(embed=create_embed(
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\interactions.py", line 855, in send_message
+    await adapter.create_interaction_response(
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\webhook\async_.py", line 221, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 858, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\discord-bot.py", line 403, in web_ui
+    await ctx.response.send_message(embed=create_embed(color=0xff0000, title="エラー", message="URLの生成中にエラーが発生しました"))
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\interactions.py", line 855, in send_message
+    await adapter.create_interaction_response(
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\webhook\async_.py", line 221, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\commands.py", line 876, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'web-ui' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction
+2025-04-24 12:29:25,706 - discord-bot - INFO - ボットを終了しています...
+2025-04-24 12:29:36,223 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-04-24 12:29:36,223 - discord-bot - INFO - Discordクライアントの初期化に成功しました。
+2025-04-24 12:29:36,227 - discord-bot - INFO - ボットを起動しています...
+2025-04-24 12:29:36,228 - discord.client - INFO - logging in using static token
+2025-04-24 12:29:37,568 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 301ea4db78a11cbfbaf641939582bbdd).
+2025-04-24 12:29:39,595 - discord-bot - INFO - ログインしました: 予定作成くん#1509
+2025-04-24 12:29:39,974 - discord-bot - INFO - コマンドツリーの同期に成功しました。
+2025-04-24 12:29:39,974 - discord-bot - INFO - 通知ループを開始しました。
+2025-04-24 12:29:39,990 - discord-bot - INFO - 設定キャッシュを更新しました。
+2025-04-24 12:30:22,672 - discord.app_commands.tree - ERROR - Ignoring exception in command tree
+Traceback (most recent call last):
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1151, in wrapper
+    await self._call(interaction)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1283, in _call
+    command, options = self._get_app_command_options(data)
+  File "C:\Users\schoo\Desktop\python\discord-at-code-reminder\.venv\lib\site-packages\discord\app_commands\tree.py", line 1187, in _get_app_command_options
+    raise CommandNotFound(name, parents)
+discord.app_commands.errors.CommandNotFound: Application command 'web-ui' not found
+2025-04-24 12:45:17,060 - discord-bot - INFO - ボットを終了しています...

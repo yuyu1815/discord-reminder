@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Discord通知管理 - 通知編集{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>通知を編集</h2>
+            <a href="{{ url_for('server_dashboard', server_id=server_id, token=token) }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> ダッシュボードに戻る
+            </a>
+        </div>
+        <p class="text-muted">サーバーID: {{ server_id }} / 通知ID: {{ notification.id }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>通知設定フォーム</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('edit_notification', server_id=server_id, token=token, notification_id=notification.id) }}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="option" class="form-label">通知タイプ</label>
+                                <input type="text" class="form-control" value="{{ notification.option }}" readonly>
+                                <div class="form-text">通知タイプは変更できません。新しいタイプの通知を作成するには、この通知を削除して新しく作成してください。</div>
+                            </div>
+                            
+                            {% if notification.option == 'week' or notification.option == 'month' %}
+                            <div class="mb-3">
+                                <label for="week" class="form-label">曜日</label>
+                                <input type="text" class="form-control" value="{{ notification.week }}" readonly>
+                            </div>
+                            {% endif %}
+                            
+                            {% if notification.option == 'month' or notification.option == 'oneday' %}
+                            <div class="mb-3">
+                                <label for="day" class="form-label">日付</label>
+                                <input type="text" class="form-control" value="{{ notification.day }}" readonly>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="mb-3">
+                                <label for="time" class="form-label">時間 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="time" name="time" value="{{ notification.call_time }}" placeholder="HH:MM:SS (例: 06:00:00)" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="channel_id" class="form-label">チャンネルID <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="channel_id" name="channel_id" value="{{ notification.channel_id }}" placeholder="例: 123456789012345678" required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">タイトル <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="title" name="title" value="{{ notification.title }}" placeholder="通知のタイトル" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">メッセージ <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="message" name="message" rows="3" placeholder="通知の本文" required>{{ notification.main_text }}</textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="mention_ids" class="form-label">メンションするロールID</label>
+                                <input type="text" class="form-control" id="mention_ids" name="mention_ids" value="{{ notification.mention_ids if notification.mention_ids != 'None' else '' }}" placeholder="例: 123456789012345678">
+                                <div class="form-text">空白の場合はメンションしません</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="img" class="form-label">画像URL</label>
+                                <input type="text" class="form-control" id="img" name="img" value="{{ notification.img if notification.img != 'None' else '' }}" placeholder="例: https://example.com/image.png">
+                                <div class="form-text">空白の場合は画像を表示しません</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">通知を更新</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>ヘルプ</h3>
+            </div>
+            <div class="card-body">
+                <h5>通知タイプについて</h5>
+                <ul>
+                    <li><strong>毎日 (day)</strong> - 毎日同じ時間に通知します</li>
+                    <li><strong>毎週 (week)</strong> - 毎週特定の曜日に通知します</li>
+                    <li><strong>毎月 (month)</strong> - 毎月特定の日または特定の週と曜日に通知します</li>
+                    <li><strong>一回のみ (oneday)</strong> - 指定した日時に一度だけ通知します</li>
+                </ul>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> 通知タイプ、曜日、日付は変更できません。これらを変更する場合は、新しい通知を作成してください。
+                </div>
+                
+                <h5>フィールドの説明</h5>
+                <ul>
+                    <li><strong>時間</strong> - HH:MM:SS形式で通知する時間を指定します</li>
+                    <li><strong>チャンネルID</strong> - 通知を送信するDiscordチャンネルのIDを指定します</li>
+                    <li><strong>タイトル</strong> - 通知のタイトルを指定します</li>
+                    <li><strong>メッセージ</strong> - 通知の本文を指定します</li>
+                    <li><strong>メンションするロールID</strong> - 通知時にメンションするロールのIDを指定します（オプション）</li>
+                    <li><strong>画像URL</strong> - 通知に表示する画像のURLを指定します（オプション）</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}

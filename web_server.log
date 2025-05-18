@@ -1,0 +1,97 @@
+2025-04-24 12:31:10,795 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-24 12:31:10,795 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-24 12:31:10,802 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:31:13,133 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:31:13,146 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:31:14,003 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:14] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:14,959 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-24 12:31:19,748 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:19] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03!ïÔSò÷í\x96ç\x04\x07±J¡p°_¥ÉA')
+2025-04-24 12:31:19,750 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:19] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03!ïÔSò÷í\x96ç\x04\x07±J¡p°_¥ÉA\x0b-Lx[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:19,764 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:19] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:21,006 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:21] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:21,006 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:21] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03\x9b¬ÅZJwÛ\x05\x18V\x12>v\x8e\x97ømÀöBùÊÍÓ\x85\x9c19\x97\x94\x19n \x0e\x1b\x0dE²é4Xoì@ã\x1bLø\x15,\x92r\x09ß\x096Ç®±1Qcøá%\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:21,011 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:21] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:22,812 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:22] code 400, message Bad request version ('\x91^Ï\xadä')
+2025-04-24 12:31:22,813 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:22] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03Qe\x1c.$\x16GÃlOêA>Ã=\x89³\x92\x14öË\x1c\x91^Ï­ä[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:22,818 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:22] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:24,845 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:24] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:24,846 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:24] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03T\x05\x1f\x01Ã\x9f\x8451¥íG!hzª\x88Þ@\x07ìå©^fH\\gä~\x83a ÞäÖ6\x04×P/Þ\x93àÆÍÝ\x0cß\x8c¹ë­[<Xs>í\x111=,\x8fç\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:24,851 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:24] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:31,877 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:31] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:31,877 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:31] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03®m9-ø\x08÷ ¢&R)]Ù0\x9aãè¦vyLR\x14w*%\x97¶Pr- wÙEcL\x84bN¢S\x07\x19UÈ\x8eíÏoO=¨ÿú!·Gh\x0cn\x91}s\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:31,892 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:31] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:33,114 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:33] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:33,117 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:33] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03¬1VQ;s\x16Õ&çXD¯8­«àôD7¿¿ÝüQR×Ï¨Û\x9ek ðHzà:\\\x95ÜR»m\x03ZÏ¯é\x90\x0cÒ\x83q\x01h¦2#å\x9ac\x1e-õ\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:33,124 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:33] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:35,204 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:35] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:35,204 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:35] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03\x0dZÉT\x0dB9I\x95Á\\¥ÅÓ§J\x8dëKØ=ÃË\x9d-\x12­6R8­e \x1c©§G(?xàñ\x9d«Kê{7n\x06\x9bè\x11x<£Ì\x9c½6$p-å\x1c\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:35,210 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:35] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:37,021 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:37] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:37,022 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:37] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03\x13Õ X[\x00uOVc#Ã±îÀ%\x9f¹OW\x12Å\x13\x87]u\x01\x80ÖÂqø ´6êa\x18=Ù\x08\x1fXßaÓhõ©\x91cnöÿj±¹W\x03yÉ)\x05¿Õ\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:37,027 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:37] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:39,306 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:39] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:39,306 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:39] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03»\x97j\x87\x16\x93\x1dKzý\x8fmQÅÈS¢Ô-Ûç\x05XºÆ¡ÿ\x0e\x04\x15k\x92 hsTéø®\x8aeÍåüî¾©oëÂÉJ\x9f\x81ýç\x08\x9d$j_ò\x15'A\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:39,311 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:39] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:31:43,305 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:31:43] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:31:43,306 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:43] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03ËH0v\x9f\x1a¿*\x16\x9fþ\x87n;Ç\x18\x93Ko@Ê¡¸\x15\x82vS_õñãÐ Ï>:5ö2yqJXy#¶÷\x0f¥\x0bð%\x15÷.gú}ËâÛ\x7f\x9e´w\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:31:43,311 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:31:43] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:36:39,749 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:36:41,143 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:36:45,292 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:36:45,302 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:36:59,238 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:37:00,116 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:37:04,097 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:37:04,107 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:37:17,341 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:37:18,161 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:37:21,512 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:37:21,522 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:37:34,694 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:37:35,214 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:37:38,093 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:37:38,106 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:37:46,632 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:37:47,127 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:37:50,912 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:37:50,924 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:37:59,671 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:38:00,696 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:38:03,959 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:38:03,970 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:38:13,158 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:38:14,475 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:38:18,042 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:38:18,050 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:38:27,848 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\discord-bot.py', reloading
+2025-04-24 12:38:28,376 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:38:32,109 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:38:32,125 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:38:42,599 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\discord-bot.py', reloading
+2025-04-24 12:38:44,844 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:38:51,026 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:38:51,040 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:39:07,384 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\discord-bot.py', reloading
+2025-04-24 12:39:08,926 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:39:12,735 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:39:12,749 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:39:22,365 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\discord-bot.py', reloading
+2025-04-24 12:39:22,859 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:39:26,828 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:39:26,843 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:39:37,241 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:39:37,723 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:39:40,261 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:39:40,272 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:39:49,532 - werkzeug - INFO -  * Detected change in 'C:\\Users\\schoo\\Desktop\\python\\discord-at-code-reminder\\web_server.py', reloading
+2025-04-24 12:39:50,938 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:39:54,984 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:39:54,993 - werkzeug - INFO -  * Debugger PIN: 513-075-350
+2025-04-24 12:39:55,156 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:39:55] code 400, message Bad request version ('\x9bf')
+2025-04-24 12:39:55,158 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:39:55] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03jîÝ\\EýârTiy[¨ÊgV\x8dAØ#ÿ\x8c%\x1e~\x85¬\x1f|vçB \x13 \x0c\x9bf[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:39:55,162 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:39:55] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:39:55,171 - werkzeug - ERROR - 127.0.0.1 - - [24/Apr/2025 12:39:55] code 400, message Bad request version ('À\x13À')
+2025-04-24 12:39:55,171 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:39:55] "[35m[1m\x16\x03\x01\x00ñ\x01\x00\x00í\x03\x03!\x9b¥\x95z\x8a\x18\x83ê\x95\x1f\x1bñ,þsÿáäM°!ó²3ê¯#+\x8f\x86¼ Z¦[$ô°Æý5êsÈ4Ù\x9b<n³}ìP2p\x03\x8eö[SÑü\x13ó\x00"\x13\x03\x13\x01\x13\x02Ì©Ì¨À+À/À,À0À\x09À\x13À[0m" HTTPStatus.BAD_REQUEST -
+2025-04-24 12:39:55,210 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:39:55] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -
+2025-04-24 12:39:55,211 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:39:55] "[31m[1mGET /server/810430013370662912/aJpT8YV_uPs-Kz8eaRSyJg HTTP/1.1[0m" 403 -

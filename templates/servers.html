@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Discord通知管理 - サーバー一覧{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>サーバー一覧</h2>
+                <p class="text-muted">管理者権限を持つDiscordサーバーの一覧です</p>
+            </div>
+            <div class="card-body">
+                {% if guilds %}
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for guild in guilds %}
+                    <div class="col">
+                        <div class="card h-100">
+                            {% if guild.icon_url %}
+                            <img src="{{ guild.icon_url }}" class="card-img-top p-3" alt="{{ guild.name }}" style="max-height: 150px; object-fit: contain;">
+                            {% else %}
+                            <div class="text-center p-3">
+                                <i class="fas fa-server fa-5x text-muted"></i>
+                            </div>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ guild.name }}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">ID: {{ guild.id }}</small>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ url_for('server_dashboard', server_id=guild.id, token=server_tokens[guild.id]) }}" class="btn btn-primary w-100">
+                                    通知を管理
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    管理者権限を持つDiscordサーバーがありません。サーバーの管理者になるか、ボットを新しいサーバーに招待してください。
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    .card-img-top {
+        max-height: 150px;
+        object-fit: contain;
+    }
+</style>
+{% endblock %}
